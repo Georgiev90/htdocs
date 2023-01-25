@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <body class="p-3" xmlns="http://www.w3.org/1999/html">
+    <div class="card  text-center">
+        <div class="card-header">
+            <h1>Profile</h1>
+
+        </div>
+        <div class="card-body">
+            <p>Hello, <strong>{{ user.username }}</strong></p>
+            <br>
+            <a href="{{ path('note_create') }}" class="btn btn-outline-primary">Add new note</a>
+            <table class="table">
+                <thead>
+                <th>Note</th>
+                <th>Creation Date</th>
+                <th>Is Completed?</th>
+                <th>Action</th>
+                </thead>
+                {% for note in user.notes %}
+                    <tr>
+                        <td> {{ note.note }}</td>
+                        <td> {{ note.createdAt|date('Y-m-d h:m:s') }}</td>
+                        <td> {{ note.isCompleted | yes_no|default(false)|raw }}</td>
+                        <td><a href="{{ path('note_update',{'id':note.id}) }}"
+                               class="btn btn-outline-success">Update</a>
+                            <a href="{{ path('note_update_status',{'id':note.id}) }}"
+                               class="btn btn-{{ note.isCompleted ? 'danger':'primary' }}">{{ note.isCompleted ? 'Incomplete':'Complete' }}</a>
+                            <a href="{{ path('note_delete',{'id':note.id}) }}" onclick="confirm('Are you sure?')"
+                               class="btn btn-outline-danger">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <a href="{{ path('logout') }}" class="btn btn-outline-danger">logout</a>
+        </div>
+    </div>
+    </body>
+{% endblock %}

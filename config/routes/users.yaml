@@ -1,0 +1,12 @@
+register:
+  path: /register
+  controller: App\Controller\UserController::register
+login:
+  path: /
+  controller: App\Controller\UserController::login
+profile:
+  path: /profile
+  controller: App\Controller\UserController::profile
+logout:
+  path: /logout
+  controller: App\Controller\UserController::logout
